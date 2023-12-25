@@ -14,7 +14,7 @@ img{
 .container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  gap: 10px;
+  gap: 5px;
 }
 
 p {
