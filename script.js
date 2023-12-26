@@ -7,9 +7,9 @@ const container = document.getElementById("container");
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(input.value);
   search(input.value)
 })
+
 const movies = async () => {
   const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`);
   const {results} = await res.json();
@@ -28,7 +28,6 @@ const search = async (title) => {
   try{
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}`);
     const {results} = await res.json();
-    console.log(results);
     const movieCards = results.map(({backdrop_path, original_title}) => (`
     <div class="content">
       <img src="${link}${backdrop_path}">
@@ -41,12 +40,13 @@ const search = async (title) => {
       container.innerHTML = movieCards;
       return
     }
-    console.log("WALANG GANON");
-    alert("PAKYU")  
+    container.innerHTML = "Not Found";
     }
   catch (error) {
     console.log(error);
   }
 }
+
+
 
 
