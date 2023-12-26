@@ -57,3 +57,20 @@ a:active {
   text-decoration: none;
   color: inherit;
 }
+
+.not-found {
+  font-family: impact;
+  font-size: 30px;
+}
+
+#not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.word-2 {
+  color: rgb(226, 183, 104);
+  font-size: 50px;
+}

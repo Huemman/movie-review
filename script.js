@@ -3,6 +3,7 @@ const api_key = "1bfdbff05c2698dc917dd28c08d41096";
 const input = document.getElementById('search');
 const form = document.getElementById('top-bar-form');
 const container = document.getElementById("container");
+const notFound = document.getElementById('not-found');
 
 
 form.addEventListener('submit', (e) => {
@@ -40,7 +41,10 @@ const search = async (title) => {
       container.innerHTML = movieCards;
       return
     }
-    container.innerHTML = "Not Found";
+    container.innerHTML = "";
+    notFound.innerHTML = `<div class='not-found'>
+    <p><span class="word-2">Deck</span> Not Found</p>
+    </div>`;
     }
   catch (error) {
     console.log(error);
