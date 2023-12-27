@@ -40,11 +40,12 @@ const search = async (title) => {
     if(results.length > 0){
       container.innerHTML = movieCards;
       return
-    }
+      } else {
     container.innerHTML = "";
     notFound.innerHTML = `<div class='not-found'>
     <p><span class="word-2">Deck</span> Not Found</p>
     </div>`;
+      }
     }
   catch (error) {
     console.log(error);
