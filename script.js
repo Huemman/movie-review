@@ -4,7 +4,7 @@ const input = document.getElementById('search');
 const form = document.getElementById('top-bar-form');
 const container = document.getElementById("container");
 const notFound = document.getElementById('not-found');
-
+const detailsContainer = document.getElementById('details');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -14,16 +14,41 @@ form.addEventListener('submit', (e) => {
 const movies = async () => {
   const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`);
   const {results} = await res.json();
-  const movieCards =  results.map(({backdrop_path, original_title})=>(`
-    <div class="content">
-      <img src="${link}${backdrop_path}">
-      <p>${original_title}</p>
+  const movieCards =  results.map(({backdrop_path, original_title, id})=>(`
+    <div ondblclick="movieDetails(${id})" class="content">
+        <img src="${link}${backdrop_path}">
+        <p>${original_title}</p>
     </div>
-    `)).join("")
-  container.innerHTML = movieCards;
+    `)).join("")  
+  container.innerHTML = movieCards; 
 };
-
 movies()
+
+const movieDetails = async (id) => {
+  try {
+    const details = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&language=en-US`);
+    const similar = await fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${api_key}&language=en-US&page=1`);
+    const {results} = await similar.json();
+    const {backdrop_path, overview} = await details.json();
+    const deck = `
+    <div class="movie-deck">
+      <img src="${link}${backdrop_path}"> 
+      <p>${overview}</p>
+    </div> 
+    `;
+    const similars = results.map(({backdrop_path, original_title}) => (`
+    <div class="movie-deck">
+      <img src="${link}${backdrop_path}"> 
+      <p>${original_title}</p>
+    </div> 
+    `)).join("");
+    container.innerHTML = similars;
+    detailsContainer.innerHTML = deck;
+  } catch (error) {
+    console.log('Change code');
+  }
+  
+};
 
 const search = async (title) => {
   try{
@@ -51,7 +76,4 @@ const search = async (title) => {
     console.log(error);
   }
 }
-
-
-
 
