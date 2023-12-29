@@ -11,23 +11,30 @@
     <div class="title">
       <a href="index.html"><p><span class="word-1">My</span>Deck</p></a>
     </div>
+    <button class="sort" id="sort" onclick="popularMovies()">See Popular Movies</button>
     <form id="top-bar-form">
       <input type="text" id="search">
       <button type="submit" class="sub-btn">Search</button>
     </form>
+  </div>
+  <div class="page" id="page">
     
   </div>
   <div class="details", id="details">
   </div>
-  <div class="container" id="container">
 
+  <div class="similar-movies" id="similar-movies">
   </div>
+
+  <div class="container" id="container">
+  </div>
+  
   <div class="next-prev-page">
     <button class="prev" id="prev" onclick="prevPage()">Previous</button> 
     <button class="next" id="next" onclick="nxtPage()">Next</button> 
   </div>
+  
   <div id="not-found">
-
   </div>
   
   <script src="script.js">

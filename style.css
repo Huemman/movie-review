@@ -1,3 +1,6 @@
+body {
+  margin: 0;
+}
 img{
   width: 160px;
   height: 250px;
@@ -8,7 +11,15 @@ img{
 .container {
   display: grid;
   grid-template-columns: 165px 165px 165px 165px 165px 165px 165px;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px
+}
+
+.similar-movies {
+  display: grid;
+  grid-template-columns: 165px 165px 165px 165px 165px;
+  justify-content: center;
+  gap: 20px
 }
 .content {
   background-color: rgba(255, 255, 255, 0.8);
@@ -39,7 +50,7 @@ p {
   display: flex;
   align-items: right;
   margin-bottom: 15px;
-  box-shadow: 0 1px 0 0 black;
+  padding: 10px;
 }
 
 #top-bar-form {
@@ -115,7 +126,7 @@ h2 {
   margin-top: 80px;
 }
 
-.prev, .next {
+.prev, .next, .sort {
   border: none;
   padding: 5px;
   border-radius: 15px;
@@ -124,10 +135,25 @@ h2 {
   transition: background-color 0.13s;
 }
 
+.sort {
+  text-align: center;
+  height: fit-content;
+  margin-top: 35px;
+  margin-right: 10px;
+}
+
 .prev:hover {
   background-color: rgb(226, 183, 104);
 }
 
 .next:hover{
   background-color: rgb(226, 183, 104);
+}
+
+.sort:hover {
+  background-color: rgb(226, 183, 104);
+}
+
+.details {
+  padding: 10px;
 }
