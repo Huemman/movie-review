@@ -45,6 +45,7 @@ const movieDetails = async (id) => {
     const similar = await fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${api_key}&language=en-US&page=1`);
     const {results} = await similar.json();
     const {backdrop_path, overview, vote_average, vote_count} = await details.json();
+    window.scrollTo(0, 0);
     const deck = `
     <div class="overview">
       <img src="${link}${backdrop_path}" class="clicked-img"> 
@@ -76,6 +77,7 @@ const search = async (movieName) => {
   try{
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${movieName}`);
     const {results} = await res.json();
+    window.scrollTo(0, 0);
     const movieCards = results.map(({poster_path, title, id}) => (`
     <div ondblclick="movieDetails(${id})" class="content">
       <img src="${link}${poster_path}">
