@@ -43,21 +43,21 @@ const movies = async () => {
 movies()
 
 const popularMovies = async () => {
-  const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`);
+  const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`);
   const {results} = await res.json();
-  const movieCards =  results.filter(({popularity}) => popularity >= 140).map(({poster_path, title, id})=>(`
+  const movieCards =  results.filter(({vote_average}) => vote_average >= 6).map(({poster_path, title, id})=>(`
     <div ondblclick="movieDetails(${id})" class="content">
         <img src="${link}${poster_path}">
         <p>${title}</p>
     </div>
     `)).join("")  
   container.innerHTML = movieCards; 
-  pageTitle.innerHTML = `<h2 style="margin-left: 10px">Popular</h2>`;
+  pageTitle.innerHTML = `<h2 style="margin-left: 10px">Top Rated</h2>`;
   similarMoviesContainer.innerHTML = '';
   detailsContainer.innerHTML = '';
   notFound.innerHTML = '';
-  nxtBtn.style.display = 'none';
-  prevBtn.style.display = 'none';
+  nxtBtn.style.display = '';
+  prevBtn.style.display = '';
 
 }
 
@@ -66,7 +66,7 @@ const movieDetails = async (id) => {
     const details = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&language=en-US`);
     const similar = await fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${api_key}&language=en-US&page=1`);
     const {results} = await similar.json();
-    const {backdrop_path, overview, vote_average, vote_count, title} = await details.json();
+    const {backdrop_path, overview, vote_average, vote_count, title, release_date, status} = await details.json();
     window.scrollTo(0, 0);
     const deck = `
     <div class="overview">
@@ -74,6 +74,8 @@ const movieDetails = async (id) => {
       <div class="text-ov">
         <h2>About ${title}</h2>  
         <p>${overview}</p>
+        <br><br>
+        <p><strong>Release Date:</strong> ${release_date} ${status}</p>
       </div>
     </div> 
     <p>Rating: <strong>${vote_average}/10</strong>  ${vote_count}voted</p>
