@@ -29,36 +29,44 @@ function prevPage() {
 }
 
 const movies = async () => {  
-  const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`);
-  const {results} = await res.json();
-  const movieCards =  results.map(({poster_path, title, id})=>(`
-    <div ondblclick="movieDetails(${id})" class="content">
-        <img src="${link}${poster_path}">
-        <p>${title}</p>
-    </div>
-    `)).join("")  
-  container.innerHTML = movieCards; 
-  pageTitle.innerHTML = `<h2 style="margin-left: 10px">Upcoming</h2>`;
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`);
+    const {results} = await res.json();
+    const movieCards =  results.map(({poster_path, title, id})=>(`
+      <div ondblclick="movieDetails(${id})" class="content">
+          <img src="${link}${poster_path}">
+          <p>${title}</p>
+      </div>
+      `)).join("")  
+    container.innerHTML = movieCards; 
+    pageTitle.innerHTML = `<h2 style="margin-left: 10px">Upcoming</h2>`;
+  } catch (error) {
+    console.log(error)
+  }
+
 };
 movies()
 
 const popularMovies = async () => {
-  const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`);
-  const {results} = await res.json();
-  const movieCards =  results.filter(({vote_average}) => vote_average >= 6).map(({poster_path, title, id})=>(`
-    <div ondblclick="movieDetails(${id})" class="content">
-        <img src="${link}${poster_path}">
-        <p>${title}</p>
-    </div>
-    `)).join("")  
-  container.innerHTML = movieCards; 
-  pageTitle.innerHTML = `<h2 style="margin-left: 10px">Top Rated</h2>`;
-  similarMoviesContainer.innerHTML = '';
-  detailsContainer.innerHTML = '';
-  notFound.innerHTML = '';
-  nxtBtn.style.display = '';
-  prevBtn.style.display = '';
-
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=${page}`);
+    const {results} = await res.json();
+    const movieCards =  results.filter(({vote_average}) => vote_average >= 6).map(({poster_path, title, id})=>(`
+      <div ondblclick="movieDetails(${id})" class="content">
+          <img src="${link}${poster_path}">
+          <p>${title}</p>
+      </div>
+      `)).join("")  
+    container.innerHTML = movieCards; 
+    pageTitle.innerHTML = `<h2 style="margin-left: 10px">Top Rated</h2>`;
+    similarMoviesContainer.innerHTML = '';
+    detailsContainer.innerHTML = '';
+    notFound.innerHTML = '';
+    nxtBtn.style.display = '';
+    prevBtn.style.display = '';
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const movieDetails = async (id) => {
@@ -95,7 +103,7 @@ const movieDetails = async (id) => {
     nxtBtn.style.display = 'none';
     prevBtn.style.display = 'none';
   } catch (error) {
-    console.log('Change code');
+    console.log(error);
   }
   
 };
